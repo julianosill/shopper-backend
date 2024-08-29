@@ -1,6 +1,9 @@
 import fastify from 'fastify'
+import { errorHandler } from 'http/error-handler'
 
 const app = fastify()
+
+app.setErrorHandler(errorHandler)
 
 app
   .listen({
