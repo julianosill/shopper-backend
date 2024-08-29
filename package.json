@@ -11,6 +11,7 @@
     "prisma:generate": "npx prisma generate",
     "prisma:deploy": "DATABASE_URL=postgresql://user:password@localhost:5432/shopper-db?schema=public npx prisma migrate deploy",
     "wait-for-postgres": "node infra/scripts/wait-for-postgres.js",
+    "db:up": "docker compose -f docker-compose-db.yml up -d",
     "db:prepare": "npm run prisma:generate && npm run prisma:deploy",
     "app": "docker compose up -d  && npm run wait-for-postgres && npm run db:prepare"
   },
