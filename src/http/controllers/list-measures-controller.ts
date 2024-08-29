@@ -2,7 +2,7 @@ import type { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
 import { PrismaMeasuresRepository } from '@/repositories/prisma'
-import { ListMeasuresService } from '@/services/list-measures-service'
+import { ListMeasuresService } from '@/services'
 
 const paramSchema = z.object({
   customer_code: z.string({ message: 'Código do usuário inválido' }),
@@ -22,7 +22,7 @@ const querySchema = z.object({
 type ParamSchema = z.infer<typeof paramSchema>
 type QuerySchema = z.infer<typeof querySchema>
 
-export async function list(
+export async function listMeasuresController(
   request: FastifyRequest<{ Params: ParamSchema; Querystring: QuerySchema }>,
   reply: FastifyReply,
 ) {

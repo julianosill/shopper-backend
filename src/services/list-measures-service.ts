@@ -1,4 +1,4 @@
-import { MeasuresNotFoundError } from '@/http/error-classes'
+import { MeasuresNotFoundError } from '@/http/errors'
 import type { MeasuresRepository } from '@/repositories'
 import type { Measure } from '@/repositories/types'
 

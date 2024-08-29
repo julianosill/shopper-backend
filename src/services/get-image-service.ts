@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 
-import { ImageNotFoundError } from '@/http/error-classes'
+import { ImageNotFoundError } from '@/http/errors'
 
 interface GetImageServiceRequest {
   tmpFolder: string

@@ -13,7 +13,7 @@ const bodySchema = z.object({
 
 type BodySchema = z.infer<typeof bodySchema>
 
-export async function confirm(
+export async function confirmMeasureController(
   request: FastifyRequest<{ Body: BodySchema }>,
   reply: FastifyReply,
 ) {

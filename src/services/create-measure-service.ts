@@ -1,5 +1,5 @@
 import { convertAndSaveImage, extractDataFromImage } from '@/helpers'
-import { DoubleReportError } from '@/http/error-classes'
+import { DoubleReportError } from '@/http/errors'
 import type { MeasuresRepository } from '@/repositories'
 
 interface CreateMeasureServiceRequest {

@@ -22,7 +22,7 @@ const bodySchema = z.object({
 
 type BodySchema = z.infer<typeof bodySchema>
 
-export async function upload(
+export async function createMeasuresController(
   request: FastifyRequest<{ Body: BodySchema }>,
   reply: FastifyReply,
 ) {

@@ -1,7 +1,4 @@
-import {
-  ConfirmationDuplicate,
-  MeasureNotFoundError,
-} from '@/http/error-classes'
+import { ConfirmationDuplicate, MeasureNotFoundError } from '@/http/errors'
 import type { MeasuresRepository } from '@/repositories'
 
 interface ConfirmMeasureServiceRequest {
