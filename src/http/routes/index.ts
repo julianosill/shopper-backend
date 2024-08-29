@@ -1,3 +1,7 @@
 import type { FastifyInstance } from 'fastify'
 
-export async function routes(app: FastifyInstance) {}
+import { upload } from './upload'
+
+export async function routes(app: FastifyInstance) {
+  app.post('/upload', upload)
+}
