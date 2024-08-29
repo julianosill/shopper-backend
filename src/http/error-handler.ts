@@ -1,7 +1,11 @@
 import type { FastifyInstance } from 'fastify'
 import { ZodError } from 'zod'
 
-import { DoubleReportError } from './error-classes'
+import {
+  ConfirmationDuplicate,
+  DoubleReportError,
+  MeasureNotFoundError,
+} from './error-classes'
 
 type FastifyErrorHandler = FastifyInstance['errorHandler']
 
@@ -20,6 +24,20 @@ export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
     return reply.status(409).send({
       error_code: 'DOUBLE_REPORT',
       error_description: 'Leitura do mês já realizada',
+    })
+  }
+
+  if (error instanceof MeasureNotFoundError) {
+    return reply.status(404).send({
+      error_code: 'MEASURE_NOT_FOUND',
+      error_description: 'Leitura do mês não encontrada',
+    })
+  }
+
+  if (error instanceof ConfirmationDuplicate) {
+    return reply.status(409).send({
+      error_code: 'CONFIRMATION_DUPLICATE',
+      error_description: 'Leitura do mês já confirmada',
     })
   }
 
