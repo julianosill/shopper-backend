@@ -4,6 +4,7 @@ import { ZodError } from 'zod'
 import {
   ConfirmationDuplicate,
   DoubleReportError,
+  ImageNotFoundError,
   MeasureNotFoundError,
   MeasuresNotFoundError,
 } from './error-classes'
@@ -46,6 +47,13 @@ export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
     return reply.status(404).send({
       error_code: 'MEASURES_NOT_FOUND',
       error_description: 'Nenhuma leitura encontrada',
+    })
+  }
+
+  if (error instanceof ImageNotFoundError) {
+    return reply.status(404).send({
+      error_code: 'IMAGE_NOT_FOUND',
+      error_description: 'Imagem não encontrada',
     })
   }
 
