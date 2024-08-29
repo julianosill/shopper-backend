@@ -1,0 +1,33 @@
+{
+  "name": "shopper-backend",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node build/server.cjs",
+    "dev": "tsx watch src/server.ts"
+  },
+  "keywords": [],
+  "author": "Juliano Sill",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "0.17.1",
+    "@prisma/client": "5.19.0",
+    "dotenv": "16.4.5",
+    "fastify": "4.28.1",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@rocketseat/eslint-config": "2.2.2",
+    "@types/node": "22.5.0",
+    "@typescript-eslint/eslint-plugin": "6.4.0",
+    "eslint": "8.56.0",
+    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-simple-import-sort": "12.1.1",
+    "prisma": "5.19.0",
+    "tsup": "8.2.4",
+    "tsx": "4.19.0",
+    "typescript": "5.5.4"
+  }
+}
