@@ -35,8 +35,8 @@ model Measure {
   has_confirmed    Boolean     @default(false)
   image_url        String
 
-  customer      Customer? @relation(fields: [customer_code], references: [code])
-  customer_code String?
+  customer      Customer @relation(fields: [customer_code], references: [code])
+  customer_code String
 
   @@map("measures")
 }
