@@ -8,3 +8,23 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=shopper-db
+    networks:
+      - shopper-network
+
+  api:
+    build:
+      context: .
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - DATABASE_URL=postgresql://user:password@postgres:5432/shopper-db?schema=public
+    container_name: shopper-api
+    ports:
+      - 3000:3333
+    depends_on:
+      - postgres
+    networks:
+      - shopper-network
+
+networks:
+  shopper-network:
+    driver: bridge

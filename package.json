@@ -6,7 +6,13 @@
   "main": "index.js",
   "scripts": {
     "start": "node build/server.cjs",
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "build": "tsup src --out-dir build",
+    "prisma:generate": "npx prisma generate",
+    "prisma:deploy": "DATABASE_URL=postgresql://user:password@localhost:5432/shopper-db?schema=public npx prisma migrate deploy",
+    "wait-for-postgres": "node infra/scripts/wait-for-postgres.js",
+    "db:prepare": "npm run prisma:generate && npm run prisma:deploy",
+    "app": "docker compose up -d  && npm run wait-for-postgres && npm run db:prepare"
   },
   "keywords": [],
   "author": "Juliano Sill",
