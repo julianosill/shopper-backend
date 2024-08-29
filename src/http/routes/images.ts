@@ -1,8 +1,9 @@
 import fs from 'node:fs'
 
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { ImageNotFoundError } from 'http/error-classes'
 import { z } from 'zod'
+
+import { ImageNotFoundError } from '@/http/error-classes'
 
 export async function images(request: FastifyRequest, reply: FastifyReply) {
   const paramSchema = z.object({

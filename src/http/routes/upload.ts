@@ -1,8 +1,9 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { convertAndSaveImage, extractDataFromImage } from 'helpers'
-import { DoubleReportError } from 'http/error-classes'
-import { prisma } from 'libs/prisma'
 import { z } from 'zod'
+
+import { convertAndSaveImage, extractDataFromImage } from '@/helpers'
+import { DoubleReportError } from '@/http/error-classes'
+import { prisma } from '@/libs/prisma'
 
 const base64ImageRegex =
   /^data:image\/(jpeg|png|gif|bmp|webp);base64,[A-Za-z0-9+/]+={0,2}$/

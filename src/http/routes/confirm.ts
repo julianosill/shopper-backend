@@ -1,7 +1,11 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { ConfirmationDuplicate, MeasureNotFoundError } from 'http/error-classes'
-import { prisma } from 'libs/prisma'
 import { z } from 'zod'
+
+import {
+  ConfirmationDuplicate,
+  MeasureNotFoundError,
+} from '@/http/error-classes'
+import { prisma } from '@/libs/prisma'
 
 const bodySchema = z.object({
   measure_uuid: z.string().uuid({ message: 'UUID de leitura inválido' }),

@@ -1,7 +1,8 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { MeasuresNotFoundError } from 'http/error-classes'
-import { prisma } from 'libs/prisma'
 import { z } from 'zod'
+
+import { MeasuresNotFoundError } from '@/http/error-classes'
+import { prisma } from '@/libs/prisma'
 
 const paramSchema = z.object({
   customer_code: z.string({ message: 'Código do usuário inválido' }),

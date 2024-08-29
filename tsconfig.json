@@ -11,7 +11,7 @@
     "sourceMap": true,
     "outDir": "build",
     "rootDir": "src",
-    "baseUrl": "src",
+    "baseUrl": "./",
     "incremental": false,
     "skipLibCheck": true,
     "noImplicitAny": false,
@@ -24,7 +24,7 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
   },
   "include": [
     "src",

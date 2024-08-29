@@ -1,4 +1,4 @@
-import { fileManager, genAI } from 'libs/gen-ai'
+import { fileManager, genAI } from '@/libs/gen-ai'
 
 interface ExtractDataFromImageResponse {
   measureValue: number
