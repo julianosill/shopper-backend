@@ -1,8 +1,8 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-import { MeasuresNotFoundError } from '@/http/error-classes'
-import { prisma } from '@/libs/prisma'
+import { PrismaMeasuresRepository } from '@/repositories/prisma'
+import { ListMeasuresService } from '@/services/list-measures-service'
 
 const paramSchema = z.object({
   customer_code: z.string({ message: 'Código do usuário inválido' }),
@@ -29,25 +29,12 @@ export async function list(
   const { customer_code } = paramSchema.parse(request.params)
   const { measure_type } = querySchema.parse(request.query)
 
-  const measures = await prisma.measure.findMany({
-    where: {
-      customer_code,
-      measure_type,
-    },
-    select: {
-      measure_uuid: true,
-      measure_datetime: true,
-      measure_type: true,
-      has_confirmed: true,
-      image_url: true,
-    },
+  const measuresRepository = new PrismaMeasuresRepository()
+  const confirmMeasureService = new ListMeasuresService(measuresRepository)
+  const response = await confirmMeasureService.execute({
+    customer_code,
+    measure_type,
   })
-
-  if (measures.length <= 0) {
-    throw new MeasuresNotFoundError()
-  }
-
-  const response = { customer_code, measures }
 
   return reply.status(200).send(response)
 }

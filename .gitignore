@@ -4,3 +4,6 @@ build
 
 # Environment
 .env
+
+# Temporary files folder
+tmp

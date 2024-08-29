@@ -1,14 +1,13 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-import {
-  ConfirmationDuplicate,
-  MeasureNotFoundError,
-} from '@/http/error-classes'
-import { prisma } from '@/libs/prisma'
+import { PrismaMeasuresRepository } from '@/repositories/prisma'
+import { ConfirmMeasureService } from '@/services'
 
 const bodySchema = z.object({
-  measure_uuid: z.string().uuid({ message: 'UUID de leitura inválido' }),
+  measure_uuid: z
+    .string({ message: 'UUID de leitura inválido' })
+    .uuid({ message: 'UUID de leitura inválido' }),
   confirmed_value: z.number({ message: 'O valor deve ser um número' }),
 })
 
@@ -20,28 +19,12 @@ export async function confirm(
 ) {
   const { measure_uuid, confirmed_value } = bodySchema.parse(request.body)
 
-  const measure = await prisma.measure.findUnique({
-    where: { measure_uuid },
-    select: {
-      measure_uuid: true,
-      has_confirmed: true,
-    },
+  const measuresRepository = new PrismaMeasuresRepository()
+  const confirmMeasureService = new ConfirmMeasureService(measuresRepository)
+  const response = await confirmMeasureService.execute({
+    measure_uuid,
+    confirmed_value,
   })
 
-  if (!measure) {
-    throw new MeasureNotFoundError()
-  }
-
-  if (measure.has_confirmed) {
-    throw new ConfirmationDuplicate()
-  }
-
-  await prisma.measure.update({
-    where: { measure_uuid },
-    data: { measure_value: confirmed_value, has_confirmed: true },
-  })
-
-  return reply.status(200).send({
-    success: true,
-  })
+  return reply.status(200).send(response)
 }
