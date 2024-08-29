@@ -61,6 +61,7 @@ export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
 
   return reply.status(500).send({
     error_code: 'INTERNAL_ERROR',
-    error_description: 'Internal server error',
+    error_description:
+      'Ocorreu um erro inesperado, verifique o console para mais detalhes.',
   })
 }
