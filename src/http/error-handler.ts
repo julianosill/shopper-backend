@@ -5,6 +5,7 @@ import {
   ConfirmationDuplicate,
   DoubleReportError,
   MeasureNotFoundError,
+  MeasuresNotFoundError,
 } from './error-classes'
 
 type FastifyErrorHandler = FastifyInstance['errorHandler']
@@ -38,6 +39,13 @@ export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
     return reply.status(409).send({
       error_code: 'CONFIRMATION_DUPLICATE',
       error_description: 'Leitura do mês já confirmada',
+    })
+  }
+
+  if (error instanceof MeasuresNotFoundError) {
+    return reply.status(404).send({
+      error_code: 'MEASURES_NOT_FOUND',
+      error_description: 'Nenhuma leitura encontrada',
     })
   }
 
