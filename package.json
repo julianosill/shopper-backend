@@ -15,7 +15,7 @@
     "wait-for-postgres": "node infra/scripts/wait-for-postgres.js",
     "db:up": "docker compose -f docker-compose-db.yml up -d",
     "db:prepare": "npm run prisma:generate && npm run prisma:deploy",
-    "app": "docker compose up -d  && npm run wait-for-postgres && npm run db:prepare"
+    "app": "docker compose up -d  && npm run wait-for-postgres && npm run db:prepare && echo 'HTTP server running on http://localhost:3000'"
   },
   "keywords": [],
   "author": "Juliano Sill<sill.juliano@gmail.com>",
