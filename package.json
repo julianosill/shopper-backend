@@ -16,7 +16,7 @@
     "app": "docker compose up -d  && npm run wait-for-postgres && npm run db:prepare"
   },
   "keywords": [],
-  "author": "Juliano Sill",
+  "author": "Juliano Sill<sill.juliano@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "@google/generative-ai": "0.17.1",
