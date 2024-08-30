@@ -1,4 +1,6 @@
-export type MeasureType = 'WATER' | 'GAS'
+export const MEASURE_TYPES = ['WATER', 'GAS'] as const
+
+export type MeasureType = (typeof MEASURE_TYPES)[number]
 
 export type Measure = {
   measure_uuid: string

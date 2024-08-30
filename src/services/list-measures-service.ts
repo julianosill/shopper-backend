@@ -1,10 +1,10 @@
 import { MeasuresNotFoundError } from '@/http/errors'
 import type { MeasuresRepository } from '@/repositories'
-import type { Measure } from '@/repositories/types'
+import type { Measure, MeasureType } from '@/repositories/types'
 
 interface ListMeasuresServiceRequest {
   customer_code: string
-  measure_type?: 'WATER' | 'GAS'
+  measure_type?: MeasureType
 }
 
 interface ListMeasuresServiceResponse {

@@ -1,13 +1,14 @@
 import { convertAndSaveImage, extractDataFromImage } from '@/helpers'
 import { DoubleReportError } from '@/http/errors'
 import type { MeasuresRepository } from '@/repositories'
+import type { MeasureType } from '@/repositories/types'
 
 interface CreateMeasureServiceRequest {
   image: string
   baseImageURL: string
   customer_code: string
   measure_datetime: Date
-  measure_type: 'WATER' | 'GAS'
+  measure_type: MeasureType
 }
 
 interface CreateMeasureServiceResponse {

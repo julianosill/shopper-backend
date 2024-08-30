@@ -5,6 +5,7 @@ import {
   PrismaCustomersRepository,
   PrismaMeasuresRepository,
 } from '@/repositories/prisma'
+import { MEASURE_TYPES } from '@/repositories/types'
 import { CreateCustomerService, CreateMeasureService } from '@/services'
 
 const base64ImageRegex =
@@ -15,7 +16,7 @@ const bodySchema = z.object({
   measure_datetime: z
     .string({ message: 'Data de leitura inválida' })
     .datetime({ message: 'Data de leitura inválida' }),
-  measure_type: z.enum(['WATER', 'GAS'], {
+  measure_type: z.enum(MEASURE_TYPES, {
     message: 'Tipo de medição não permitida',
   }),
 })
