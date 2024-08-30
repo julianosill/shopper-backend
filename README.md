@@ -2,7 +2,7 @@
 
 API Rest desenvolvida em `Node.js` para gerenciar a leitura individualizada de consumo de água e gás, integrando uma API de LLM (Google Gemini) para realizar a leitura da fatura e extrair o número do consumo do mês informado.
 
-## Linguagens, bibliotecas e ferramentas
+### Linguagens, bibliotecas e ferramentas
 
 ![node.js](https://img.shields.io/badge/node.js-292b36?style=for-the-badge&logo=node.js)
 ![typescript](https://img.shields.io/badge/typescript-292b36?style=for-the-badge&logo=typescript)
@@ -28,34 +28,52 @@ API Rest desenvolvida em `Node.js` para gerenciar a leitura individualizada de c
 
 ## Executando o projeto
 
-*Para executar esta API, é necessário possuir o `Docker` instalado.*
+*Para executar esta API, é necessário possuir o `Docker` instalado em sua máquina.*
 
-1. Clone este repositório com o comando:
+1. Clone este repositório e acesse a pasta do projeto com os comandos abaixo:
 
 ```shell
 git clone https://github.com/julianosill/shopper-backend.git
-```
-
-2. Acesse a pasta do projeto, executando:
-
-```shell
 cd shopper-backend
 ```
 
-3. Crie o arquivo `.env` contendo apenas a chave da API do Google Gemini, seguindo o padrão abaixo:
+2. Crie o arquivo `.env` contendo apenas a chave da API do Google Gemini, seguindo o padrão abaixo:
 
 ```
 GEMINI_API_KEY=
 ```
-> Ou renomeie o arquivo `.env_sample`, adicionando o valor na chave da API mencionada acima.
+> Ou renomeie o arquivo `.env_sample` para `.env` e adicione o valor na chave da API mencionada acima.
 
-4. Com o `Docker` já inicializado e disponível para uso, execute o comando:
+3. Com o `Docker` inicializado e disponível para uso, execute o comando:
 
 ```shell
 npm run app
 ```
-5. O `Docker` irá gerar o *build* da imagem e irá subir os serviços necessários (aplicação e banco de dados). Aguarde a mensagem abaixo aparecer em seu terminal:
+> Este comando irá executar o `docker compose` para gerar a imagem da aplicação, subir os serviços necessários e, em seguida, executar as `migrations`.
+
+4. Aguarde a mensagem abaixo aparecer em seu terminal:
 ```
 All migrations have been successfully applied.
 ```
-6. A aplicação estará disponível no endereço [http://localhost:3000](http://localhost:3000)
+5. A aplicação estará disponível no endereço [http://localhost:3000](http://localhost:3000)
+
+### Encerrando a execução do projeto
+
+Execute o comando abaixo para encerrar a execução da aplicação e excluir os containers:
+```shell
+docker compose down
+```
+
+## Endpoints
+
+- POST `/upload`: rota para envio da fatura a ser lida
+- PATCH `/confirm`: rota para confirmação do valor lido
+- GET `/:customer_code/list`: rota para listagem de leituras realizadas
+- GET `/:customer_code/list?measure_type=`: parâmetro disponível para filtragem por tipo de leitura
+- GET `/images/:filename`: rota de acesso à imagem da fatura
+
+## Observações
+
+- A inserção da chave `DATABASE_URL` em ambos os scripts (`package.json` e `docker-compose.yml`) não segue as boas práticas. Desenvolvi desta forma devido à restrição do arquivo `.env`, o qual deve conter apenas a chave da API do Google Gemini. 
+  - Em outro cenário, eu criaria arquivos `.env.development` e `.env.prodution` contendo as chaves necessárias em cada ambiente.
+- Para disponibilização da imagem da fatura, poderia ter utilizado um `bucket` da AWS. Tenho conhecimento para aplicar, porém devido à restrição citada acima, optei por armazenar na pasta da própria aplicação.
