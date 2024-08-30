@@ -39,7 +39,7 @@ export interface FindManyMeasuresByCustomerCodeRequest
   measure_type?: MeasureType
 }
 
-export interface FindManyMeasuresByCustomerCodeResponse extends Measure {}
+export type FindManyMeasuresByCustomerCodeResponse = Measure[]
 
 export interface CreateMeasureRequest extends BaseCustomerData {
   measure_value: number
