@@ -1,8 +1,8 @@
 import { ConfirmationDuplicate, MeasureNotFoundError } from '@/http/errors'
 import type { MeasuresRepository } from '@/repositories'
+import type { Measure } from '@/repositories/types'
 
-interface ConfirmMeasureServiceRequest {
-  measure_uuid: string
+interface ConfirmMeasureServiceRequest extends Pick<Measure, 'measure_uuid'> {
   confirmed_value: number
 }
 

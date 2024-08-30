@@ -1,21 +1,16 @@
 import { convertAndSaveImage, extractDataFromImage } from '@/helpers'
 import { DoubleReportError } from '@/http/errors'
 import type { MeasuresRepository } from '@/repositories'
-import type { MeasureType } from '@/repositories/types'
+import type { Measure } from '@/repositories/types'
 
-interface CreateMeasureServiceRequest {
+interface CreateMeasureServiceRequest
+  extends Pick<Measure, 'customer_code' | 'measure_datetime' | 'measure_type'> {
   image: string
   baseImageURL: string
-  customer_code: string
-  measure_datetime: Date
-  measure_type: MeasureType
 }
 
-interface CreateMeasureServiceResponse {
-  image_url: string
-  measure_value: number
-  measure_uuid: string
-}
+interface CreateMeasureServiceResponse
+  extends Pick<Measure, 'image_url' | 'measure_value' | 'measure_uuid'> {}
 
 export class CreateMeasureService {
   constructor(private measuresRepository: MeasuresRepository) {}

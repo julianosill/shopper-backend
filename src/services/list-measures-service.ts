@@ -1,15 +1,17 @@
 import { MeasuresNotFoundError } from '@/http/errors'
 import type { MeasuresRepository } from '@/repositories'
-import type { Measure, MeasureType } from '@/repositories/types'
+import type {
+  FindManyMeasuresByCustomerCodeResponse,
+  Measure,
+  MeasureType,
+} from '@/repositories/types'
 
-interface ListMeasuresServiceRequest {
-  customer_code: string
+interface ListMeasuresServiceRequest extends Pick<Measure, 'customer_code'> {
   measure_type?: MeasureType
 }
 
-interface ListMeasuresServiceResponse {
-  customer_code: string
-  measures: Measure[]
+interface ListMeasuresServiceResponse extends Pick<Measure, 'customer_code'> {
+  measures: FindManyMeasuresByCustomerCodeResponse
 }
 
 export class ListMeasuresService {

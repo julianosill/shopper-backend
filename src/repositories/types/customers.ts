@@ -1,11 +1,11 @@
-interface BaseCustomerData {
+export type Customer = {
   code: string
 }
 
-export interface FindCustomerByCodeRequest extends BaseCustomerData {}
+export interface FindCustomerByCodeRequest extends Customer {}
 
-export interface FindCustomerByCodeResponse extends BaseCustomerData {}
+export interface FindCustomerByCodeResponse extends Customer {}
 
-export interface CreateCustomerRequest extends BaseCustomerData {}
+export interface CreateCustomerRequest extends Customer {}
 
-export interface CreateCustomerResponse extends BaseCustomerData {}
+export interface CreateCustomerResponse extends Customer {}

@@ -1,22 +1,12 @@
 export const MEASURE_TYPES = ['WATER', 'GAS'] as const
 export type MeasureType = (typeof MEASURE_TYPES)[number]
-interface BaseMeasureData {
-  measure_uuid: string
-}
 
-interface BaseCustomerData {
+type BaseCustomerData = {
   customer_code: string
 }
 
-export interface Measure extends BaseMeasureData {
-  measure_datetime: Date
-  measure_type: MeasureType
-  has_confirmed: boolean
-  image_url: string
-}
-export interface FindMeasureByUUIDRequest extends BaseMeasureData {}
-
-export interface FindMeasureByUUIDResponse extends BaseMeasureData {
+export type Measure = {
+  measure_uuid: string
   measure_value: number
   measure_datetime: Date
   measure_type: MeasureType
@@ -25,34 +15,44 @@ export interface FindMeasureByUUIDResponse extends BaseMeasureData {
   customer_code: string
 }
 
-export interface CheckDoubleReportRequest extends BaseCustomerData {
-  measure_datetime: Date
+export interface FindMeasureByUUIDRequest
+  extends Pick<Measure, 'measure_uuid'> {}
+
+export interface FindMeasureByUUIDResponse extends Measure {}
+
+export interface CheckDoubleReportRequest
+  extends BaseCustomerData,
+    Pick<Measure, 'measure_datetime'> {
   measure_type?: MeasureType
 }
 
-export interface CheckDoubleReportResponse extends BaseCustomerData {
-  measure_datetime: Date
-  measure_type: MeasureType
-}
+export interface CheckDoubleReportResponse
+  extends BaseCustomerData,
+    Pick<Measure, 'measure_datetime' | 'measure_type'> {}
+
 export interface FindManyMeasuresByCustomerCodeRequest
   extends BaseCustomerData {
   measure_type?: MeasureType
 }
 
-export type FindManyMeasuresByCustomerCodeResponse = Measure[]
+export type FindManyMeasuresByCustomerCodeResponse = Pick<
+  Measure,
+  | 'measure_uuid'
+  | 'measure_datetime'
+  | 'measure_type'
+  | 'has_confirmed'
+  | 'image_url'
+>[]
 
-export interface CreateMeasureRequest extends BaseCustomerData {
-  measure_value: number
-  measure_datetime: Date
-  measure_type: MeasureType
-  image_url: string
-}
+export interface CreateMeasureRequest
+  extends BaseCustomerData,
+    Pick<
+      Measure,
+      'measure_value' | 'measure_datetime' | 'measure_type' | 'image_url'
+    > {}
 
-export interface CreateMeasureResponse extends BaseMeasureData {
-  image_url: string
-  measure_value: number
-}
+export interface CreateMeasureResponse
+  extends Pick<Measure, 'measure_uuid' | 'measure_value' | 'image_url'> {}
 
-export interface ConfirmMeasureRequest extends BaseMeasureData {
-  measure_value: number
-}
+export interface ConfirmMeasureRequest
+  extends Pick<Measure, 'measure_uuid' | 'measure_value'> {}
