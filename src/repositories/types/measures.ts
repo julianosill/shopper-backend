@@ -20,13 +20,14 @@ export interface FindMeasureByUUIDRequest
 
 export interface FindMeasureByUUIDResponse extends Measure {}
 
-export interface CheckDoubleReportRequest
+export interface FindByCustomerMeasureTypeAndMonthRequest
   extends BaseCustomerData,
-    Pick<Measure, 'measure_datetime'> {
-  measure_type?: MeasureType
+    Pick<Measure, 'customer_code' | 'measure_type'> {
+  startOfMonth: Date
+  endOfMonth: Date
 }
 
-export interface CheckDoubleReportResponse
+export interface FindByCustomerMeasureTypeAndMonthResponse
   extends BaseCustomerData,
     Pick<Measure, 'measure_datetime' | 'measure_type'> {}
 

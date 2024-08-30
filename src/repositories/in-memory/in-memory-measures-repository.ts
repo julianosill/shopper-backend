@@ -2,11 +2,11 @@ import { randomUUID } from 'node:crypto'
 
 import type { MeasuresRepository } from '..'
 import type {
-  CheckDoubleReportRequest,
-  CheckDoubleReportResponse,
   ConfirmMeasureRequest,
   CreateMeasureRequest,
   CreateMeasureResponse,
+  FindByCustomerMeasureTypeAndMonthRequest,
+  FindByCustomerMeasureTypeAndMonthResponse,
   FindManyMeasuresByCustomerCodeRequest,
   FindManyMeasuresByCustomerCodeResponse,
   FindMeasureByUUIDRequest,
@@ -27,25 +27,32 @@ export class InMemoryMeasuresRepository implements MeasuresRepository {
     return measure
   }
 
-  async checkDoubleReport({
+  async findByCustomerMeasureTypeAndMonth({
     customer_code,
-    measure_datetime,
     measure_type,
-  }: CheckDoubleReportRequest): Promise<CheckDoubleReportResponse | null> {
-    const measure = this.items.find(
-      (item) =>
+    startOfMonth,
+    endOfMonth,
+  }: FindByCustomerMeasureTypeAndMonthRequest): Promise<FindByCustomerMeasureTypeAndMonthResponse | null> {
+    const measure = this.items.find((item) => {
+      const startDate = new Date(startOfMonth)
+      const endDate = new Date(endOfMonth)
+      const measureDate = new Date(item.measure_datetime)
+      const sameMonth = measureDate >= startDate && measureDate <= endDate
+
+      return (
+        sameMonth &&
         item.customer_code === customer_code &&
-        item.measure_datetime === measure_datetime &&
-        item.measure_type === measure_type,
-    )
+        item.measure_type === measure_type
+      )
+    })
 
     if (!measure) {
       return null
     }
 
     return {
-      customer_code,
-      measure_datetime,
+      customer_code: measure.customer_code,
+      measure_datetime: measure.measure_datetime,
       measure_type: measure.measure_type,
     }
   }

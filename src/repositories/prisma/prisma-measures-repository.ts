@@ -2,11 +2,11 @@ import { prisma } from '@/libs/prisma'
 
 import type { MeasuresRepository } from '..'
 import type {
-  CheckDoubleReportRequest,
-  CheckDoubleReportResponse,
   ConfirmMeasureRequest,
   CreateMeasureRequest,
   CreateMeasureResponse,
+  FindByCustomerMeasureTypeAndMonthRequest,
+  FindByCustomerMeasureTypeAndMonthResponse,
   FindManyMeasuresByCustomerCodeRequest,
   FindManyMeasuresByCustomerCodeResponse,
   FindMeasureByUUIDRequest,
@@ -21,13 +21,21 @@ export class PrismaMeasuresRepository implements MeasuresRepository {
     return measure
   }
 
-  async checkDoubleReport({
+  async findByCustomerMeasureTypeAndMonth({
     customer_code,
-    measure_datetime,
     measure_type,
-  }: CheckDoubleReportRequest): Promise<CheckDoubleReportResponse | null> {
+    startOfMonth,
+    endOfMonth,
+  }: FindByCustomerMeasureTypeAndMonthRequest): Promise<FindByCustomerMeasureTypeAndMonthResponse | null> {
     const measure = await prisma.measure.findFirst({
-      where: { customer_code, measure_datetime, measure_type },
+      where: {
+        customer_code,
+        measure_type,
+        measure_datetime: {
+          gte: startOfMonth,
+          lte: endOfMonth,
+        },
+      },
       select: {
         customer_code: true,
         measure_datetime: true,

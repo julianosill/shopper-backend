@@ -1,9 +1,9 @@
 import type {
-  CheckDoubleReportRequest,
-  CheckDoubleReportResponse,
   ConfirmMeasureRequest,
   CreateMeasureRequest,
   CreateMeasureResponse,
+  FindByCustomerMeasureTypeAndMonthRequest,
+  FindByCustomerMeasureTypeAndMonthResponse,
   FindManyMeasuresByCustomerCodeRequest,
   FindManyMeasuresByCustomerCodeResponse,
   FindMeasureByUUIDRequest,
@@ -12,9 +12,9 @@ import type {
 
 export interface MeasuresRepository {
   findByUUID(data: FindMeasureByUUIDRequest): Promise<Measure | null>
-  checkDoubleReport(
-    data: CheckDoubleReportRequest,
-  ): Promise<CheckDoubleReportResponse | null>
+  findByCustomerMeasureTypeAndMonth(
+    data: FindByCustomerMeasureTypeAndMonthRequest,
+  ): Promise<FindByCustomerMeasureTypeAndMonthResponse | null>
   findManyByCustomerCode(
     data: FindManyMeasuresByCustomerCodeRequest,
   ): Promise<FindManyMeasuresByCustomerCodeResponse>
