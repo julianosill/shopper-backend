@@ -1,4 +1,4 @@
-import { fileManager, genAI } from '@/libs/gen-ai'
+import { fileManager, geminiModel, genAI } from '@/libs/gen-ai'
 
 interface ExtractDataFromImageResponse {
   measureValue: number
@@ -7,14 +7,14 @@ interface ExtractDataFromImageResponse {
 export async function extractDataFromImage(
   filePath: string,
 ): Promise<ExtractDataFromImageResponse> {
-  const geminiModel = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' })
+  const gemini = genAI.getGenerativeModel({ model: geminiModel })
 
   const { file } = await fileManager.uploadFile(filePath, {
     mimeType: 'image/jpeg',
     displayName: filePath,
   })
 
-  const result = await geminiModel.generateContent([
+  const result = await gemini.generateContent([
     {
       fileData: {
         mimeType: file.mimeType,
