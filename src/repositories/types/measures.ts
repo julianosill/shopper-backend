@@ -1,20 +1,22 @@
 export const MEASURE_TYPES = ['WATER', 'GAS'] as const
-
 export type MeasureType = (typeof MEASURE_TYPES)[number]
-
-export type Measure = {
+interface BaseMeasureData {
   measure_uuid: string
+}
+
+interface BaseCustomerData {
+  customer_code: string
+}
+
+export interface Measure extends BaseMeasureData {
   measure_datetime: Date
   measure_type: MeasureType
   has_confirmed: boolean
   image_url: string
 }
-export interface FindMeasureByUUIDRequest {
-  measure_uuid: string
-}
+export interface FindMeasureByUUIDRequest extends BaseMeasureData {}
 
-export interface FindMeasureByUUIDResponse {
-  measure_uuid: string
+export interface FindMeasureByUUIDResponse extends BaseMeasureData {
   measure_value: number
   measure_datetime: Date
   measure_type: MeasureType
@@ -23,39 +25,34 @@ export interface FindMeasureByUUIDResponse {
   customer_code: string
 }
 
-export interface CheckDoubleReportRequest {
-  customer_code: string
+export interface CheckDoubleReportRequest extends BaseCustomerData {
   measure_datetime: Date
   measure_type?: MeasureType
 }
 
-export interface CheckDoubleReportResponse {
-  customer_code: string
+export interface CheckDoubleReportResponse extends BaseCustomerData {
   measure_datetime: Date
   measure_type: MeasureType
 }
-export interface FindManyMeasuresByCustomerCodeRequest {
-  customer_code: string
+export interface FindManyMeasuresByCustomerCodeRequest
+  extends BaseCustomerData {
   measure_type?: MeasureType
 }
 
-export type FindManyMeasuresByCustomerCodeResponse = Measure[]
+export interface FindManyMeasuresByCustomerCodeResponse extends Measure {}
 
-export interface CreateMeasureRequest {
+export interface CreateMeasureRequest extends BaseCustomerData {
   measure_value: number
   measure_datetime: Date
   measure_type: MeasureType
   image_url: string
-  customer_code: string
 }
 
-export interface CreateMeasureResponse {
+export interface CreateMeasureResponse extends BaseMeasureData {
   image_url: string
   measure_value: number
-  measure_uuid: string
 }
 
-export interface ConfirmMeasureRequest {
-  measure_uuid: string
+export interface ConfirmMeasureRequest extends BaseMeasureData {
   measure_value: number
 }

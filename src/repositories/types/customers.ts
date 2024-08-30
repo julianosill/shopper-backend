@@ -1,15 +1,11 @@
-export interface FindCustomerByCodeRequest {
+interface BaseCustomerData {
   code: string
 }
 
-export interface FindCustomerByCodeResponse {
-  code: string
-}
+export interface FindCustomerByCodeRequest extends BaseCustomerData {}
 
-export interface CreateCustomerRequest {
-  code: string
-}
+export interface FindCustomerByCodeResponse extends BaseCustomerData {}
 
-export interface CreateCustomerResponse {
-  code: string
-}
+export interface CreateCustomerRequest extends BaseCustomerData {}
+
+export interface CreateCustomerResponse extends BaseCustomerData {}
