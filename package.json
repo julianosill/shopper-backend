@@ -7,6 +7,8 @@
   "scripts": {
     "start": "node build/server.cjs",
     "dev": "tsx watch src/server.ts",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "build": "tsup src --out-dir build",
     "prisma:generate": "npx prisma generate",
     "prisma:deploy": "DATABASE_URL=postgresql://user:password@localhost:5432/shopper-db?schema=public npx prisma migrate deploy",
@@ -27,12 +29,18 @@
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "2.2.2",
+    "@swc/jest": "0.2.36",
+    "@types/jest": "29.5.12",
     "@types/node": "22.5.0",
+    "@types/supertest": "6.0.2",
     "@typescript-eslint/eslint-plugin": "6.4.0",
     "eslint": "8.56.0",
     "eslint-plugin-import": "2.29.1",
     "eslint-plugin-simple-import-sort": "12.1.1",
+    "jest": "29.7.0",
     "prisma": "5.19.0",
+    "supertest": "7.0.0",
+    "ts-node": "10.9.2",
     "tsup": "8.2.4",
     "tsx": "4.19.0",
     "typescript": "5.5.4"

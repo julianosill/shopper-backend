@@ -3,7 +3,7 @@ import fastify from 'fastify'
 import { errorHandler } from './http/errors'
 import { routes } from './http/routes'
 
-const app = fastify()
+export const app = fastify()
 
 app.setErrorHandler(errorHandler)
 app.register(routes)
@@ -14,5 +14,7 @@ app
     port: 3333,
   })
   .then(() => {
-    console.log(`HTTP server running on port ${3333}!`)
+    if (process.env.NODE_ENV !== 'test') {
+      console.log('HTTP server running on port 3333!')
+    }
   })
