@@ -1,3 +1,4 @@
+import { GoogleGenerativeAIFetchError } from '@google/generative-ai'
 import type { FastifyInstance } from 'fastify'
 import { ZodError } from 'zod'
 
@@ -58,6 +59,19 @@ export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
   }
 
   console.log(error)
+
+  if (error instanceof GoogleGenerativeAIFetchError) {
+    const geminiError = error as GoogleGenerativeAIFetchError
+    return reply.status(500).send({
+      error_code: 'GEMINI_API_ERROR',
+      error_description:
+        'Ocorreu um erro inesperado na API do Gemini, verifique o console para mais detalhes.',
+      gemini: {
+        status: geminiError.status,
+        message: geminiError.message,
+      },
+    })
+  }
 
   return reply.status(500).send({
     error_code: 'INTERNAL_ERROR',
