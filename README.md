@@ -12,14 +12,16 @@ API Rest desenvolvida em `Node.js` para gerenciar a leitura individualizada de c
 ![prisma](https://img.shields.io/badge/prisma-292b36?style=for-the-badge&logo=prisma)
 ![google](https://img.shields.io/badge/google_gemini-292b36?style=for-the-badge&logo=google)
 ![jest](https://img.shields.io/badge/jest-292b36?style=for-the-badge&logo=jest)
+![sharp](https://img.shields.io/badge/sharp-292b36?style=for-the-badge&logo=sharp)
 ![docker](https://img.shields.io/badge/docker-292b36?style=for-the-badge&logo=docker)
 
 - `Fastify`: framework leve e rápido para gerenciamento de rotas da aplicação;
 - `Zod`: biblioteca para validação dos dados das requisições;
 - `PostgreSQL`: banco de dados para persistência dos dados;
 - `Prisma`: ORM para integração da aplicação ao banco de dados;
-- `Jest`: ferramenta para criação de testes automatizados.
-- `Docker`: ferramenta para criar, subir e executar a imagem da aplicação e banco de dados em containers;
+- `Jest`: ferramenta para criação de testes automatizados;
+- `Sharp`: biblioteca para processamento de imagens;
+- `Docker`: ferramenta para criar, subir e executar a imagem da aplicação e banco de dados em containers.
 
 ## Requisitos da aplicação
 
