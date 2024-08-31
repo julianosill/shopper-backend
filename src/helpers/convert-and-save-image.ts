@@ -3,6 +3,7 @@ import fs from 'node:fs'
 
 import sharp from 'sharp'
 
+import { env } from '@/env'
 import { InvalidImageError } from '@/http/errors'
 
 interface ConvertAndSaveImageReturn {
@@ -26,7 +27,9 @@ export async function convertAndSaveImage(
   await sharp(filePath)
     .metadata()
     .catch((err) => {
-      console.error('Invalid image file:', err.message)
+      if (env.NODE_ENV !== 'test') {
+        console.error('Invalid image file:', err.message)
+      }
       fs.unlinkSync(filePath)
       throw new InvalidImageError()
     })

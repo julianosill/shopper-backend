@@ -4,6 +4,7 @@ import z from 'zod'
 
 const envSchema = z.object({
   GEMINI_API_KEY: z.string(),
+  NODE_ENV: z.enum(['production', 'development', 'test']).default('production'),
 })
 
 const _env = envSchema.safeParse(process.env)
