@@ -1,7 +1,8 @@
 import supertest from 'supertest'
 
 import { app } from '@/server'
-import { invalidBase64Image, validBase64Image } from '@/tests/mocks'
+import { validBase64Image } from '@/tests/mocks'
+import { invalidHeaderImage } from '@/tests/mocks/invalid-header-image'
 
 describe('Create Measures Controller (Validations)', () => {
   const route = '/upload'
@@ -9,9 +10,9 @@ describe('Create Measures Controller (Validations)', () => {
   beforeAll(async () => await app.ready())
   afterAll(async () => await app.close())
 
-  it('should not be able to upload an image that is not a base64 string', async () => {
+  it('should not be able to upload an image that has not a base64 header string', async () => {
     const { status, body } = await supertest(app.server).post(route).send({
-      image: invalidBase64Image,
+      image: invalidHeaderImage,
       customer_code: 'customer',
       measure_datetime: '2024-08-29T00:00:00.000Z',
       measure_type: 'WATER',

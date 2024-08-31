@@ -1,6 +1,7 @@
-import { DoubleReportError } from '@/http/errors'
+import { DoubleReportError, InvalidImageError } from '@/http/errors'
 import { InMemoryMeasuresRepository } from '@/repositories/in-memory'
 import { validBase64Image } from '@/tests/mocks'
+import { invalidBase64Image } from '@/tests/mocks/invalid-base64-image'
 
 import {
   CreateMeasureService,
@@ -18,6 +19,18 @@ describe('Create Measure Service', () => {
 
   beforeEach(async () => {
     measuresRepository.items = []
+  })
+
+  it('should not be able to upload a invalid base64 image', async () => {
+    await expect(() =>
+      sut.execute({
+        image: invalidBase64Image,
+        baseImageURL: '/',
+        customer_code: 'customer_code',
+        measure_datetime: new Date('2024-08-30T03:00:00.000Z'),
+        measure_type: 'WATER',
+      }),
+    ).rejects.toBeInstanceOf(InvalidImageError)
   })
 
   it('should not be able to upload a measure within the same month', async () => {
