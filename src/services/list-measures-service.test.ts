@@ -67,6 +67,10 @@ describe('List Measures Service', () => {
 
     expect(customer_code).toEqual(customer_code)
     expect(measures).toHaveLength(numberOfMeasuresToCreate)
+    expect(measures).toEqual([
+      expect.objectContaining({ measure_type: 'WATER' }),
+      expect.objectContaining({ measure_type: 'WATER' }),
+    ])
   })
 
   it('should not list measures from a nonexistent customer_code', async () => {
