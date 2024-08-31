@@ -40,7 +40,7 @@ export class CreateMeasureService {
       throw new DoubleReportError()
     }
 
-    const imageFile = convertAndSaveImage(image)
+    const imageFile = await convertAndSaveImage(image)
     const imageUrl = `${baseImageURL}/${imageFile.name}`
 
     const { measureValue } = await extractDataFromImage(imageFile.path)

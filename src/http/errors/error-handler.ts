@@ -6,6 +6,7 @@ import {
   ConfirmationDuplicate,
   DoubleReportError,
   ImageNotFoundError,
+  InvalidImageError,
   MeasureNotFoundError,
   MeasuresNotFoundError,
 } from './error-classes'
@@ -20,6 +21,13 @@ export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
     return reply.status(400).send({
       error_code: errorCode,
       error_description: message,
+    })
+  }
+
+  if (error instanceof InvalidImageError) {
+    return reply.status(400).send({
+      error_code: 'INVALID_DATA',
+      error_description: 'Imagem inválida',
     })
   }
 

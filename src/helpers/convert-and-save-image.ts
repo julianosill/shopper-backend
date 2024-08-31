@@ -1,14 +1,18 @@
 import { randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 
+import sharp from 'sharp'
+
+import { InvalidImageError } from '@/http/errors'
+
 interface ConvertAndSaveImageReturn {
   name: string
   path: string
 }
 
-export function convertAndSaveImage(
+export async function convertAndSaveImage(
   base64Image: string,
-): ConvertAndSaveImageReturn {
+): Promise<ConvertAndSaveImageReturn> {
   const base64Data = base64Image.replace(
     /^data:image\/(jpeg|png|gif|bmp|webp);base64,/,
     '',
@@ -18,6 +22,14 @@ export function convertAndSaveImage(
   const filePath = `tmp/${fileName}`
 
   fs.writeFileSync(filePath, imageBuffer)
+
+  await sharp(filePath)
+    .metadata()
+    .catch((err) => {
+      console.error('Invalid image file:', err.message)
+      fs.unlinkSync(filePath)
+      throw new InvalidImageError()
+    })
 
   return { name: fileName, path: filePath }
 }
